@@ -2,15 +2,27 @@
 (function () {
     //fucntion detected the changes using .bind method
     function bindEvents() {
+        let self = this;
         $(this.textArea).on('keyup', function (e) {
             if(e.key === '@'){
-                console.log('onevent');
+                showUsers(self);
                 }
         });
     }
 
+    function showUsers(args) {
+        let usersElem = args.showUsers,
+            users = args.users;
+        usersElem.empty();
+        users = users.length > 10 ? users.slice(0, 10) : users;
+        for (let i = 0; i < users.length; i++) {
+            usersElem.append('<div class="selectUser">' + users[i]['name'] + '</div>');
+        }
+    }
+
     function init() {
-        let users = [
+        let defaults = {
+            users: [
                 {
                     name: 'Jewel',
                     image: 'https://icons8.com/icon/23242/circled-user-male-skin-type-1-2',
@@ -77,12 +89,12 @@
                     id: '13'
                 }
             ],
-            elements = {
-            textArea: $('.mention-box')
+            textArea: $('.mention-box'),
+            showUsers: $('.showUsers')
              };
 
-            if(elements.textArea){
-                bindEvents.call(elements);
+            if(defaults.textArea){
+                bindEvents.call(defaults);
             }
     }
 
