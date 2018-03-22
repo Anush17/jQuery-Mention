@@ -2,8 +2,10 @@
 (function () {
     //fucntion detected the changes using .bind method
     function bindEvents() {
-        $(this.textArea).on('keyup', function () {
-            console.log('onevent');
+        $(this.textArea).on('keyup', function (e) {
+            if(e.key === '@'){
+                console.log('onevent');
+                }
         });
     }
 
