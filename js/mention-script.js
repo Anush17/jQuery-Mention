@@ -3,14 +3,17 @@
     //function detected the changes using .bind method
     function bindEvents() {
         let bindKeyUp = bindTextAreaKeyUp.bind(this);
+        let choose = chooseUser.bind(this);
         $(this.textArea).on('keyup click', bindKeyUp);
+        $('.showUsers').on('click', '.selected', choose);
     }
 
     function bindTextAreaKeyUp(e) {
         this.position = getPosition.call(this);
-         if(e.key === '@'){
-             showUsers.call(this);
-         }
+        console.log(this.position);
+        if (e.key === '@') {
+            showUsers.call(this);
+        }
     }
 
     function getPosition() {
@@ -21,9 +24,14 @@
         let usersElem = this.showUsers,
             users = this.users;
         users = users.length > 10 ? users.slice(0, 10) : users;
-        for (let i = 0; i < users.length; i++) {
-            usersElem.append('<div class="selectUser">' + users[i]['name'] + '</div>');
+        for (let i = 0, len = users.length; i < len; i++) {
+            usersElem.append('<div class="selected">' + users[i]['name'] + '</div>');
         }
+    }
+
+    function chooseUser(e) {
+        let getText = $(e.target).text();
+        this.textArea.val(this.textArea.val() + getText + ' ');
     }
 
     function init() {
@@ -97,11 +105,11 @@
             ],
             textArea: $('.mention-box'),
             showUsers: $('.showUsers')
-             };
+        };
 
-            if(defaults.textArea){
-                bindEvents.call(defaults);
-            }
+        if (defaults.textArea) {
+            bindEvents.call(defaults);
+        }
     }
 
     init();
