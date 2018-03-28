@@ -5,12 +5,11 @@
         let bindKeyUp = bindTextAreaKeyUp.bind(this);
         let choose = chooseUser.bind(this);
         $(this.textArea).on('keyup click', bindKeyUp);
-        $('.showUsers').on('click', '.selected', choose);
+       $('.showUsers').on('click', '.selected', choose);
     }
 
     function bindTextAreaKeyUp(e) {
         this.position = getPosition.call(this);
-        console.log(this.position);
         if (e.key === '@') {
             showUsers.call(this);
         }
@@ -33,6 +32,7 @@
         let getText = $(e.target).text();
         this.textArea.val(this.textArea.val() + getText + ' ');
     }
+
 
     function init() {
         let defaults = {
