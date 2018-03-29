@@ -15,6 +15,11 @@
     cursor: pointer;
 }
 
-.selected:hover{
+.selected:hover {
     color: teal;
+}
+
+.active{
+    background:#ccc;
+    color:#FFFFFF;
 }
