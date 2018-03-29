@@ -5,7 +5,7 @@
         let bindKeyUp = bindTextAreaKeyUp.bind(this);
         let choose = chooseUser.bind(this);
         $(this.textArea).on('keyup click', bindKeyUp);
-       $('.showUsers').on('click', '.selected', choose);
+       $(this.showUsers).on('click', '.selected', choose);
     }
 
     function bindTextAreaKeyUp(e) {
@@ -114,3 +114,22 @@
 
     init();
 })();
+// function selectOne(e) {
+//   switch (e.keyCode) {
+//     case 13:
+//       console.log('enter');
+//       e.preventDefault();
+//       break;
+//     case 38:
+//       console.log('up');
+//       e.preventDefault();
+//       break;
+//     case 40:
+//       console.log('down');
+//       e.preventDefault();
+//       break;
+//     default:
+//   }
+// }
+
+// $(this.textArea).on('keydown',  selectOne);
