@@ -2,13 +2,27 @@
     margin: 40px;
 }
 
+.all {
+    margin-top: 58px;
+}
+
 .mention-box {
-    margin: 8px 0;
+    margin: -26px 0;
     display: inline-block !important;
     border: 1px solid #ccc;
     border-radius: 4px;
     box-sizing: border-box;
     background-color: #f0f0f0;
+    position: absolute;
+}
+
+.showUsers {
+    width: 13%;
+    border: 1px solid #f5f5f5;
+    padding: 12px;
+    border-radius: 11px;
+    margin-left: 10px;
+    background-color: white;
 }
 
 .selected {
@@ -16,10 +30,13 @@
 }
 
 .selected:hover {
-    color: teal;
+    color: gray;
+    font-weight: bold;
 }
 
-.active{
-    background:#ccc;
-    color:#FFFFFF;
+.active {
+    font-weight: bold;
+    text-decoration-line: underline;
+    text-underline: #cccccc;
+    color: gray;
 }

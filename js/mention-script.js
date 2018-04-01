@@ -11,9 +11,11 @@
         }
 
         function bindTextAreaKeyUp(e) {
-            this.position = getPosition.call(this);
+            getPosition.call(this);
             if (e.key === '@') {
                 showUsers.call(this);
+            } else {
+                this.showUsers.empty();
             }
         }
 
@@ -36,37 +38,39 @@
         }
 
         function selectOne(e) {
-            let current = this.showUsers.find('.active');
+            let current = this.showUsers.find('.active'),
+                currentLen = $(current.length),
+                $current = $(current);
+
             switch (e.keyCode) {
                 case 38:
                     e.preventDefault();
-                    if (current.length && $(current).prev().length) {
-                        $(current).removeClass('active');
-                        $(current).prev().addClass('active');
-                    }else {
-                        this.showUsers.find('.active').removeClass('active');
+                    if (currentLen && $current.prev().length) {
+                        $current.removeClass('active');
+                        $current.prev().addClass('active');
+                    } else {
+                        current.removeClass('active');
                         $('.showUsers .selected:last-child').addClass('active');
                     }
                     break;
                 case 40:
                     e.preventDefault();
-                    if (current.length && $(current).next().length) {
-                        $(current).removeClass('active');
-                        $(current).next().addClass('active');
-                    }else {
-                        this.showUsers.find('.active').removeClass('active');
+                    if (currentLen && $current.next().length) {
+                        $current.removeClass('active');
+                        $current.next().addClass('active');
+                    } else {
+                        current.removeClass('active');
                         $('.showUsers .selected:first-child').addClass('active');
                     }
                     break;
                 case 13:
                     e.preventDefault();
-                    let enterUser = this.showUsers.find('.active').text();
+                    let enterUser = current.text();
                     this.textArea.val(this.textArea.val() + enterUser + ' ');
                     break;
                 default:
             }
         }
-
 
         function init() {
             let defaults = {
@@ -139,8 +143,9 @@
                 ],
                 textArea: $('.mention-box'),
                 showUsers: $('.showUsers'),
-                selectedUser: $('.selected')
+                selectedUser: $('.selected'),
             };
+
 
             if (defaults.textArea) {
                 bindEvents.call(defaults);
