@@ -11,11 +11,14 @@
         }
 
         function bindTextAreaKeyUp(e) {
+            let $this = this.showUsers;
             getPosition.call(this);
             if (e.key === '@') {
                 showUsers.call(this);
+                $this.addClass('isShow');
             } else {
-                this.showUsers.empty();
+                $this.empty();
+                $this.removeClass('isShow');
             }
         }
 
@@ -143,7 +146,7 @@
                 ],
                 textArea: $('.mention-box'),
                 showUsers: $('.showUsers'),
-                selectedUser: $('.selected'),
+                selectedUser: $('.selected')
             };
 
 
