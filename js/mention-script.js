@@ -17,11 +17,9 @@
             if (e.which === 50) {
                 $this.addClass('isShow');
                 showUsers.call(this);
-            }else
-            if (splitWord || e.which === 32) {
+            } else if (splitWord || e.which === 32) {
                 $this.removeClass('isShow').empty();
             }
-
         }
 
         function getPosition() {
@@ -31,7 +29,7 @@
         function showUsers() {
             let usersElem = this.showUsers,
                 users = this.users;
-            users = users.length > 10 ? users.slice(0, 10) : users;
+            users = users.length > 10 ? users.slice(0, 8) : users;
             for (let i = 0, len = users.length; i < len; i++) {
                 usersElem.append('<div class="selected">' + users[i]['name'] + '</div>');
             }
@@ -43,28 +41,28 @@
         }
 
         function selectOne(e) {
-            let current = this.showUsers.find('.active'),
-                currentLen = $(current.length),
-                $current = $(current);
+            let findActive = this.showUsers.find('.active'),
+                currentLen = $(findActive.length),
+                current = $(findActive);
 
             switch (e.keyCode) {
                 case 38:
                     e.preventDefault();
-                    if (currentLen && $current.prev().length) {
-                        $current.removeClass('active');
-                        $current.prev().addClass('active');
-                    } else {
+                    if (currentLen && current.prev().length) {
                         current.removeClass('active');
+                        current.prev().addClass('active');
+                    } else {
+                        findActive.removeClass('active');
                         $('.showUsers .selected:last-child').addClass('active');
                     }
                     break;
                 case 40:
                     e.preventDefault();
-                    if (currentLen && $current.next().length) {
-                        $current.removeClass('active');
-                        $current.next().addClass('active');
-                    } else {
+                    if (currentLen && current.next().length) {
                         current.removeClass('active');
+                        current.next().addClass('active');
+                    } else {
+                        findActive.removeClass('active');
                         $('.showUsers .selected:first-child').addClass('active');
                     }
                     break;
