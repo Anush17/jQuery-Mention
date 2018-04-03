@@ -12,18 +12,20 @@
 
         function bindTextAreaKeyUp(e) {
             let $this = this.showUsers;
+            let splitWord = this.textArea.val().split('@')[1];
             getPosition.call(this);
-            if (e.key === '@') {
-                showUsers.call(this);
+            if (e.which === 50) {
                 $this.addClass('isShow');
-            } else {
-                $this.empty();
-                $this.removeClass('isShow');
+                showUsers.call(this);
+            }else
+            if (splitWord || e.which === 32) {
+                $this.removeClass('isShow').empty();
             }
+
         }
 
         function getPosition() {
-            return this.textArea.prop("selectionStart");
+            return this.textArea.prop('selectionStart');
         }
 
         function showUsers() {
@@ -70,6 +72,7 @@
                     e.preventDefault();
                     let enterUser = current.text();
                     this.textArea.val(this.textArea.val() + enterUser + ' ');
+                    this.showUsers.removeClass('isShow').empty();
                     break;
                 default:
             }
