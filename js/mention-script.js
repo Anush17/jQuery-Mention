@@ -4,40 +4,67 @@
         function bindEvents() {
             let bindKeyUp = bindTextAreaKeyUp.bind(this);
             let choose = chooseUser.bind(this);
-            let select = selectOne.bind(this);
             $(this.textArea).on('keyup click', bindKeyUp);
             $(this.showUsers).on('click', '.selected', choose);
-            $(this.textArea).on('keydown', select);
+            selectOne.bind(this);
         }
 
         function bindTextAreaKeyUp(e) {
-            let $this = this.showUsers;
-            let splitWord = this.textArea.val().split('@')[1];
-            getPosition.call(this);
-            if (e.which === 50) {
-                $this.addClass('isShow');
-                showUsers.call(this);
-            } else if (splitWord || e.which === 32) {
-                $this.removeClass('isShow').empty();
+            if (e.keyCode === 13 || e.keyCode === 38 || e.keyCode === 40) {
+                return selectOne.call(this, e);
             }
+            let text = this.text = this.textArea.val(),
+                cursorPosition = this.cursorPosition = getPosition.call(this),
+                startPosition = getStartCursorPosition(text, cursorPosition - 1);
+            if (startPosition) {
+                this.resultText = text.substring(startPosition, cursorPosition);
+                return fillUsersData.call(this);
+            }
+            return removeUsers.call(this);
         }
 
         function getPosition() {
             return this.textArea.prop('selectionStart');
         }
 
-        function showUsers() {
+        function getStartCursorPosition(string, position) {
+            if (!string.substring(position, (position + 1)).match(/[A-Za-z0-9]/)) {
+                if (string.substring(position, (position + 1)) === '@') {
+                    return (position + 1);
+                } else {
+                    return null;
+                }
+            }
+            return getStartCursorPosition(string, position - 1)
+        }
+
+        function fillUsersData() {
             let usersElem = this.showUsers,
-                users = this.users;
-            users = users.length > 10 ? users.slice(0, 8) : users;
-            for (let i = 0, len = users.length; i < len; i++) {
-                usersElem.append('<div class="selected">' + users[i]['name'] + '</div>');
+                users = this.users,
+                text = this.resultText;
+            removeUsers.call(this);
+            users = users.length > 8 ? users.slice(0, 8) : users;
+            for (let i = 0; i < users.length; i++) {
+                let name = users[i]['name'];
+                if (name.toLowerCase().indexOf(text) > -1) {
+                    usersElem.append('<div class="selected">' + name + '</div>');
+                }
+            }
+            if (usersElem.children().length > 0) {
+                usersElem.addClass('isShow');
             }
         }
 
+        function removeUsers() {
+            return this.showUsers.removeClass('isShow').empty();
+        }
+
         function chooseUser(e) {
-            let getText = $(e.target).text();
-            this.textArea.val(this.textArea.val() + getText + ' ');
+            let getText = $(e.target).text(),
+                pos = this.cursorPosition,
+                value = this.textArea.val();
+            this.textArea.val(value.substring(0, pos) + getText + ' ' + value.substring(pos));
+            removeUsers.call(this);
         }
 
         function selectOne(e) {
@@ -68,9 +95,11 @@
                     break;
                 case 13:
                     e.preventDefault();
-                    let enterUser = current.text();
-                    this.textArea.val(this.textArea.val() + enterUser + ' ');
-                    this.showUsers.removeClass('isShow').empty();
+                    let enterUser = current.text(),
+                        pos = this.cursorPosition,
+                        value = this.textArea.val();
+                    this.textArea.val(value.substring(0, pos) + enterUser + ' ' + value.substring(pos));
+                    removeUsers.call(this);
                     break;
                 default:
             }
