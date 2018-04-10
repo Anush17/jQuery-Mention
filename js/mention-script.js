@@ -107,6 +107,7 @@
     function init() {
         let defaults = {
             users: [
+
                 {
                     name: 'mariam13',
                     image: 'https://icons8.com/icon/23242/circled-user-male-skin-type-1-2',
@@ -177,7 +178,6 @@
             showUsers: $('.showUsers'),
             selectedUser: $('.selected')
         };
-
 
         if (defaults.textArea) {
             bindEvents.call(defaults);
