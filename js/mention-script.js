@@ -28,8 +28,9 @@
     }
 
     function getStartCursorPosition(string, position) {
-        if (!string.substring(position, (position + 1)).match(/[A-Za-z0-9]/)) {
-            if (string.substring(position, (position + 1)) === '@') {
+        let subString = string.substring(position, (position + 1));
+        if (!subString.match(/[A-Za-z0-9]/)) {
+            if (subString === '@') {
                 return (position + 1);
             } else {
                 return null;
