@@ -107,9 +107,8 @@
     function init() {
         let defaults = {
             users: [
-
                 {
-                    name: 'mariam13',
+                    name: 'Jewel',
                     image: 'https://icons8.com/icon/23242/circled-user-male-skin-type-1-2',
                     id: '1'
                 },
@@ -175,8 +174,7 @@
                 }
             ],
             textArea: $('.mention-box'),
-            showUsers: $('.showUsers'),
-            selectedUser: $('.selected')
+            showUsers: $('.showUsers')
         };
 
         if (defaults.textArea) {
@@ -186,4 +184,3 @@
 
     init();
 })();
-
