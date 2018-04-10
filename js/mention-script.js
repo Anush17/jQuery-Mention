@@ -13,7 +13,7 @@
         if (e.keyCode === 13 || e.keyCode === 38 || e.keyCode === 40) {
             return selectOne.call(this, e);
         }
-        let text = this.text = this.textArea.val(),
+        let text = this.textArea.val(),
             cursorPosition = this.cursorPosition = getPosition.call(this),
             startPosition = getStartCursorPosition(text, cursorPosition - 1);
         if (startPosition) {
